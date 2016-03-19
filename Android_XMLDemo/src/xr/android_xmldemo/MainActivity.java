@@ -27,7 +27,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.saveButton:
-			if (!SmsUtil.SaveSms(MainActivity.this)) {
+			// if (SmsUtil.SaveSms(MainActivity.this)) {
+			if (SmsUtil.SaveSmsTwo(MainActivity.this)) {
 				Toast.makeText(MainActivity.this, "短信保存成功", Toast.LENGTH_SHORT).show();
 			} else {
 				Toast.makeText(MainActivity.this, "短信保存失败", Toast.LENGTH_SHORT).show();
