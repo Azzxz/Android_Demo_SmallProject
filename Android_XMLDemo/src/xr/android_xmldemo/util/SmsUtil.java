@@ -31,23 +31,28 @@ public class SmsUtil {
 		sb.append("<Smss>");
 		// 循环遍历list集合封装所有的短信
 		for (SmsBean smsBean : al) {
+			// 每一条短信的内容
+			// 第一个标签
 			sb.append("<Sms id = \"" + smsBean.id + "\">");
 
+			// 第二个标签
 			sb.append("<num>");
 			sb.append(smsBean.num);
 			sb.append("</num>");
 
+			// 第三个标签
 			sb.append("<msg>");
 			sb.append(smsBean.msg);
 			sb.append("</msg>");
 
+			// 第四个标签
 			sb.append("<date>");
 			sb.append(smsBean.date);
 			sb.append("</date>");
 
 			sb.append("</Sms>");
 		}
-
+		// 结束根节点
 		sb.append("</Smss>");
 		FileOutputStream openFileOutput = null;
 
