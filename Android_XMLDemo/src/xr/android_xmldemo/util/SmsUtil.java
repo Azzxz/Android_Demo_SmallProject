@@ -13,7 +13,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.util.Xml;
-import xr.android_xmldemo.bean.Sms;
+import xr.android_xmldemo.bean.SmsBean;
 import xr.android_xmldemo.dao.SmsDao;
 
 public class SmsUtil {
@@ -21,7 +21,7 @@ public class SmsUtil {
 	// 生成XML文件的第一种方式 ： 直接写文件
 	public static boolean SaveSms(Context context) {
 
-		ArrayList<Sms> al = SmsDao.getSms();
+		ArrayList<SmsBean> al = SmsDao.getSms();
 
 		StringBuffer sb = new StringBuffer();
 
@@ -30,19 +30,19 @@ public class SmsUtil {
 		// 封装根节点
 		sb.append("<Smss>");
 		// 循环遍历list集合封装所有的短信
-		for (Sms sms : al) {
-			sb.append("<Sms id = \"" + sms.id + "\">");
+		for (SmsBean smsBean : al) {
+			sb.append("<Sms id = \"" + smsBean.id + "\">");
 
 			sb.append("<num>");
-			sb.append(sms.num);
+			sb.append(smsBean.num);
 			sb.append("</num>");
 
 			sb.append("<msg>");
-			sb.append(sms.msg);
+			sb.append(smsBean.msg);
 			sb.append("</msg>");
 
 			sb.append("<date>");
-			sb.append(sms.date);
+			sb.append(smsBean.date);
 			sb.append("</date>");
 
 			sb.append("</Sms>");
@@ -76,7 +76,7 @@ public class SmsUtil {
 
 	public static boolean SaveSmsTwo(Context context) {
 
-		ArrayList<Sms> al = SmsDao.getSms();
+		ArrayList<SmsBean> al = SmsDao.getSms();
 
 		// 第一步 生成一个XML序列化对象
 		XmlSerializer xs = Xml.newSerializer();
@@ -92,26 +92,26 @@ public class SmsUtil {
 			xs.startTag(null, "Smss");
 
 			// 循环插入节点及其内容
-			for (Sms sms : al) {
+			for (SmsBean smsBean : al) {
 				// 开始节点
 				xs.startTag(null, "Sms");
 
 				// 开始节点中的属性
 
-				xs.attribute(null, "id", sms.id + "");
+				xs.attribute(null, "id", smsBean.id + "");
 
 				// 节点内的节点
 				xs.startTag(null, "num");
 				// 节点的属性
-				xs.text(sms.num);
+				xs.text(smsBean.num);
 				xs.endTag(null, "num");
 
 				xs.startTag(null, "msg");
-				xs.text(sms.msg);
+				xs.text(smsBean.msg);
 				xs.endTag(null, "msg");
 
 				xs.startTag(null, "date");
-				xs.text(sms.date);
+				xs.text(smsBean.date);
 				xs.endTag(null, "date");
 
 				// 有开始 就有结束节点

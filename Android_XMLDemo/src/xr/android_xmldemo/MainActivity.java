@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import xr.android_xmldemo.util.SmsUtil;
+import xr.android_xmldemo.util.XmlPullUtil;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -36,7 +37,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 
 		case R.id.backButton:
-			Toast.makeText(MainActivity.this, "功能暂时没有开通", Toast.LENGTH_SHORT).show();
+			int backPull = XmlPullUtil.backPull(MainActivity.this);
+			Toast.makeText(MainActivity.this, "成功恢复" + backPull + "条短信", Toast.LENGTH_SHORT).show();
 			break;
 		default:
 			break;

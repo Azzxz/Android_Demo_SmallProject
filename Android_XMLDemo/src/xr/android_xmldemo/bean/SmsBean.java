@@ -1,6 +1,6 @@
 package xr.android_xmldemo.bean;
 
-public class Sms {
+public class SmsBean {
 
 	public String num ;
 	public String date;
