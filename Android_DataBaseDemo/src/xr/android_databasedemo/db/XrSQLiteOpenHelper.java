@@ -18,20 +18,19 @@ public class XrSQLiteOpenHelper extends SQLiteOpenHelper {
 	 * 只有版本号的升级才能调用 onUpgrade方法
 	 */
 	public XrSQLiteOpenHelper(Context context) {
-		super(context, "info.db", null, 2);
+		super(context, "info.db", null, 1);
 	}
 
 	// onCreate方法 只在第一次创建数据库的时候调用
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table info (_id integer primary key autoincrement,name verchar(20))");
+		db.execSQL("create table info (_id integer primary key autoincrement,name varchar(20),phone varchar(11))");
 	}
 
 	// onUpgrade方法 只在版本号升级的时候调用该方法
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-		db.execSQL("alter table info add phone verchar(11)");
 	}
 
 }

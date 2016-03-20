@@ -8,9 +8,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="xr.android_databasedemo.MainActivity" >
 
-    <TextView
+    <Button
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="增加" />
+
+    <Button
+        android:id="@+id/delButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/addButton"
+        android:layout_below="@+id/addButton"
+        android:layout_marginTop="51dp"
+        android:text="删除" />
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/delButton"
+        android:layout_below="@+id/delButton"
+        android:layout_marginTop="61dp"
+        android:text="改变" />
+
+    <Button
+        android:id="@+id/checkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/updateButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="41dp"
+        android:text="查找" />
 
 </RelativeLayout>
