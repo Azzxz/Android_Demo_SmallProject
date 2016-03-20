@@ -42,6 +42,6 @@
         android:layout_alignLeft="@+id/updateButton"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="41dp"
-        android:text="查找" />
+        android:text="更新" />
 
 </RelativeLayout>
