@@ -15,7 +15,7 @@ public class XrSQLiteOpenHelper extends SQLiteOpenHelper {
 
 	/*
 	 * 构造函数 第一个参数 上下文对象 第二个参数 数据库名称 第三参数 结果集 默认为空 第四个参数 版本号 从1开始 只能升级不能降级
-	 * 只有版本号的改变才能调用 onUpgrade方法
+	 * 只有版本号的升级才能调用 onUpgrade方法
 	 */
 	public XrSQLiteOpenHelper(Context context) {
 		super(context, "info.db", null, 2);
