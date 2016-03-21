@@ -1,5 +1,10 @@
 package xr.android_databasedemo.dao;
 
+/*
+ * 数据库的增删改查第二种方式
+ * 
+ *SQLiteDataBase中的方法 
+ * */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,10 +25,13 @@ public class InfoDao2 {
 
 		SQLiteDatabase db = helper.getWritableDatabase();
 
+		// 创建一个集合 并添加数据
 		ContentValues values = new ContentValues();
-
 		values.put("name", bean.name);
 		values.put("phone", bean.phone);
+
+		// 第一个参数 ： 数据库名称 第二个参数 默认为空 第三个参数 键值对
+		// 返回值 ： Long 类型 -1 则添加失败 其他则为成功
 		long addResult = db.insert("info", null, values);
 		db.close();
 
@@ -40,6 +48,8 @@ public class InfoDao2 {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
+		// 第一个参数 数据库名称 第二个参数 占位符 第三个参数 字符数组 占位符中的值
+		// 返回值 int 表示几行受到影响
 		int delResult = db.delete("info", "name = ?", new String[] { name });
 
 		db.close();
@@ -50,9 +60,12 @@ public class InfoDao2 {
 	// 更新数据
 	public int updateInfo(InfoBean bean) {
 		SQLiteDatabase db = helper.getReadableDatabase();
+		// 创建一个集合 并添加数据
 		ContentValues values = new ContentValues();
-
 		values.put("phone", bean.phone);
+
+		// 第一个参数 数据库名称 第二个参数 集合中的数据 第三个参数 占位符 第四个参数 占位符中的值
+		// 返回值 int 表示几行受到影响
 		int updateResult = db.update("info", values, "name = ?", new String[] { bean.name });
 		db.close();
 
@@ -65,6 +78,9 @@ public class InfoDao2 {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
+		// 第一个参数 数据库名称 第二个参数 默认为空 表示查找所有元素 第三个参数 占位符 第四个参数 占位符中的值
+		// 第五个参数 按照什么分组 第六个参数 分组条件 第七个参数 按照什么顺序排序
+		// 返回值 是一个游标
 		Cursor cursor = db.query("info", new String[] { "_id", "name", "phone" }, "name = ?", new String[] { name },
 				null, null, "_id desc");
 

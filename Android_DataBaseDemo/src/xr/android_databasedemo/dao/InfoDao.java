@@ -1,5 +1,10 @@
 package xr.android_databasedemo.dao;
-
+/*
+ * 数据库增删改查的第一种方式
+ * 
+ * SQL语句
+ * 
+ * */
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
