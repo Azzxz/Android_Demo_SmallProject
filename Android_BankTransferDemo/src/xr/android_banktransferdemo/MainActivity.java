@@ -1,5 +1,10 @@
 package xr.android_banktransferdemo;
 
+/*
+ * 数据库中事务的使用
+ * 
+ * 事务 要么同时成功 要么同时失败   
+ * */
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,17 +31,21 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				BankSQLiteOpenHelper bankSQLiteOpenHelper = new BankSQLiteOpenHelper(thisContext);
 
+				// 创建数据库帮助类对象 并通过帮助类对象 创建数据库
+				BankSQLiteOpenHelper bankSQLiteOpenHelper = new BankSQLiteOpenHelper(thisContext);
 				SQLiteDatabase db = bankSQLiteOpenHelper.getReadableDatabase();
 
-				db.beginTransaction();
+				// 事务代码块
+				db.beginTransaction(); // 开启一个事务
 				try {
+					// 模拟转账的过程
 					db.execSQL("update account set money= money-200 where name=?", new String[] { "小黄" });
-					//int i = 100 / 0;// 模拟一个异常
+					// int i = 100 / 0;// 模拟一个异常
 					db.execSQL("update account set money= money+200 where name=?", new String[] { "小明" });
 					db.setTransactionSuccessful();// 标记事务中的sql语句全部成功执行
 				} finally {
+					// 判断事务的标记是否成功，如果不成功，回滚错误之前执行的sql语句
 					db.endTransaction();
 				}
 			}

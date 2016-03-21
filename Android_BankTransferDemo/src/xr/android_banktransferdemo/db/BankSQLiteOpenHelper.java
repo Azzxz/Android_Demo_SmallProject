@@ -14,6 +14,7 @@ public class BankSQLiteOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
+		//创建数据库 并创建表 且添加两条数据
 		db.execSQL("create table account (_id integer primary key autoincrement,name varchar(20),money varchar(20))");
 		db.execSQL("insert into account ('name' ,'money') values('小明','2000')");
 		db.execSQL("insert into account ('name' ,'money') values('小黄','5000')");
