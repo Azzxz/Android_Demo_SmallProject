@@ -33,7 +33,7 @@
         android:layout_alignLeft="@+id/delButton"
         android:layout_below="@+id/delButton"
         android:layout_marginTop="61dp"
-        android:text="改变" />
+        android:text="更新" />
 
     <Button
         android:id="@+id/checkButton"
@@ -42,6 +42,6 @@
         android:layout_alignLeft="@+id/updateButton"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="41dp"
-        android:text="更新" />
+        android:text="查找" />
 
 </RelativeLayout>
