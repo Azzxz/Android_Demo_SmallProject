@@ -86,6 +86,14 @@ public class BlogAdapter extends BaseAdapter {
 		} else {
 			//第一个参数 下文   第二个参数 item布局文件的ID 第三个参数 将layout用root(ViewGroup)包一层作为codify的返回值,一般传null
 			view = View.inflate(context, R.layout.list_item, null);
+			
+			
+			//第二种方式： 通过LayoutInflater将布局转换成view对象
+			//view =  LayoutInflater.from(context).inflate(R.layout.item_news_layout, null);
+			
+			//第三种方式： 通过context获取系统服务得到一个LayoutInflater，通过LayoutInflater将一个布局转换为view对象
+			//LayoutInflater layoutInflater = (LayoutInflater) c ontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			//view = layoutInflater.inflate(R.layout.item_news_layout, null);
 		}
 
 		//得到当前view上的控件对象
