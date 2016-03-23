@@ -14,11 +14,11 @@ import android.database.sqlite.SQLiteDatabase;
 import xr.android_dblistviewdemo.bean.InfoBean;
 import xr.android_dblistviewdemo.db.XrSQLiteOpenHelper;
 
-public class InfoDao2 {
+public class InfoDao {
 
 	private XrSQLiteOpenHelper helper;
 
-	public InfoDao2(Context context) {
+	public InfoDao(Context context) {
 		helper = new XrSQLiteOpenHelper(context);
 	}
 
@@ -75,7 +75,15 @@ public class InfoDao2 {
 
 	}
 
-	// 查找数据
+	
+	/**
+	* @Title: checkInfo
+	* @Description: 查找数据 并将查找到的数据 封装到list集合中 并返回
+	* @param @param name
+	* @param @return
+	* @return ArrayList<InfoBean>
+	* @throws
+	*/
 	public ArrayList<InfoBean> checkInfo(String name) {
 
 		ArrayList<InfoBean> list = new ArrayList<InfoBean>();

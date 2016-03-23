@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import xr.android_dblistviewdemo.adapter.DBListAdapter;
 import xr.android_dblistviewdemo.bean.InfoBean;
-import xr.android_dblistviewdemo.dao.InfoDao2;
+import xr.android_dblistviewdemo.dao.InfoDao;
 import xr.android_dblistviewdemo.db.XrSQLiteOpenHelper;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -57,10 +57,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// 通过上下文创建一个dao对象
-		// 第一种方式 增删改查
-		// InfoDao dao = new InfoDao(mContext);
-		// 第二种方式增删改查
-		InfoDao2 dao = new InfoDao2(mContext);
+		InfoDao dao = new InfoDao(mContext);
 		switch (v.getId()) {
 		case R.id.addButton:
 
@@ -96,7 +93,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Toast.makeText(mContext, "成功更新" + updateInfo + "条数据", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.checkButton:
-			// 查找数据
+			// 点击查找按钮的时候 得到返回的集合 并创建和初始化适配器 并将查找的内容显示在list上
 			ArrayList<InfoBean> list = dao.checkInfo("小明");
 			DBListAdapter dbListAdapter = new DBListAdapter(mContext, list);
 			dblistView.setAdapter(dbListAdapter);
