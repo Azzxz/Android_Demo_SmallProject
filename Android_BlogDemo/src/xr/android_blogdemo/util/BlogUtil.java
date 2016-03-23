@@ -6,9 +6,25 @@ import android.content.Context;
 import xr.android_blogdemo.activity.R;
 import xr.android_blogdemo.bean.BlogBean;
 
+/**
+ * @ClassName: BlogUtil
+ * @Description: Blog的工具类 给每个item上添加内容
+ * @author iamxiarui@foxmail.com
+ * @date 2016年3月23日 上午10:46:17
+ * 
+ */
+// 屏蔽android lint错误
 @SuppressLint("NewApi")
 public class BlogUtil {
 
+	/**
+	* @Title: getBlogs
+	* @Description: 给每一个item上添加内容 并返回List集合
+	* @param @param context 上下文对象
+	* @param @return 集合对象
+	* @return ArrayList<BlogBean>
+	* @throws
+	*/
 	@SuppressLint("NewApi")
 	public static ArrayList<BlogBean> getBlogs(Context context) {
 
