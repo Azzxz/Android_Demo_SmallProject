@@ -1,7 +1,6 @@
 package xr.newsourcecodedemo.utils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -31,8 +30,8 @@ public class CodeStreamUtil {
 			code = out.toString();
 			out.close();
 
-		} catch (IOException e) {
-			System.out.println(e.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		// ·µ»Ø½á¹û
