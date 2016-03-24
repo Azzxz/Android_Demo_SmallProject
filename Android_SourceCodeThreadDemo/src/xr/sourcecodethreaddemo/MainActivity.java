@@ -29,9 +29,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	private EditText urlEText;
 	private Button lookButton;
 	private TextView codeText;
+	// 创建一个Handler对象
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			// 获取发送的信息 并更新UI
 			String result = msg.obj.toString();
 			codeText.setText(result);
 		}
@@ -59,6 +61,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Toast.makeText(MainActivity.this, "不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
+		// 开启子线程
 		new Thread(new Runnable() {
 
 			@Override
@@ -82,6 +85,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						InputStream inputStream = connection.getInputStream();
 						// 将流对象转换为字符串
 						String codeResult = CodeStreamUtil.getCodeStream(inputStream);
+						// 使用Message对象 让msg携带结果信息 并通过handler发送
 						Message msg = new Message();
 						msg.obj = codeResult;
 						handler.sendMessage(msg);
