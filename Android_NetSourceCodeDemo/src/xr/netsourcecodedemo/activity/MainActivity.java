@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				InputStream inputStream = connection.getInputStream();
 				// 将流对象转换为字符串
 				String codeResult = CodeStreamUtil.getCodeStream(inputStream);
-				// 显示在主UI中 注意 在android4.0版本之后 会报异常
+				// 显示在主UI中 注意 在android4.0版本之后 会报异常 强制性在子线程中进行
 				sourceText.setText(codeResult);
 			} else {
 				sourceText.setText("请求失败");
