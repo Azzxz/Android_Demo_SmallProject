@@ -21,7 +21,7 @@ import xr.netpicturethreaddemo.utils.CodeStreamUtil;
 
 /**
  * @ClassName: MainActivity
- * @Description: 获得用户输入网址的源代码，子线程的使用 Handler的使用
+ * @Description: 获得用户输入网址的图片，子线程的使用 Handler的使用
  * @author iamxiarui@foxmail.com
  * @date 2016年3月24日 下午5:10:37
  * 
@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			// 获取发送的信息 并更新UI
+			// 主线程获取发送的图片信息 并更新UI
 			Bitmap bitmap = (Bitmap) msg.obj;
 			picImage.setImageBitmap(bitmap);
 		}
@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void run() {
-				// 请求网络
+				// 子线程请求网络
 				try {
 					// 将用户输入网址转换为 url对象
 					URL url = new URL(url_str);
@@ -85,10 +85,11 @@ public class MainActivity extends Activity implements OnClickListener {
 					if (responseCode == 200) {
 						// 得到返回的流对象
 						InputStream inputStream = connection.getInputStream();
-
+						// 获得bitmap对象
 						Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
 						// 使用Message对象 让msg携带结果信息 并通过handler发送
+						// obtain() 方法 如果内存中存在message对象 则不创建 如果没有 则创建
 						Message msg = Message.obtain();
 						msg.obj = bitmap;
 						handler.sendMessage(msg);
