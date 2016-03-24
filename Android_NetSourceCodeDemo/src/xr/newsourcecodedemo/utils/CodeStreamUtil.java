@@ -4,13 +4,21 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @ClassName: CodeStreamUtil
+ * @Description:工具类 将网页请求返回的流对象转化为String
+ * @author iamxiarui@foxmail.com
+ * @date 2016年3月24日 下午5:14:21
+ * 
+ */
 public class CodeStreamUtil {
 
 	public static String getCodeStream(InputStream in) {
+
 		String code = "";
 
 		try {
-
+			// 字节流对象
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 
 			byte[] b = new byte[1024];
@@ -19,6 +27,7 @@ public class CodeStreamUtil {
 				out.write(b, 0, length);
 				out.flush();
 			}
+			// 将流对象转换为String
 			code = out.toString();
 			out.close();
 
@@ -26,6 +35,7 @@ public class CodeStreamUtil {
 			System.out.println(e.toString());
 		}
 
+		// 返回结果
 		return code;
 	}
 
