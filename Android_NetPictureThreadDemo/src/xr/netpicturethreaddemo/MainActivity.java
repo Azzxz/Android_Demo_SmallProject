@@ -37,6 +37,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			// 主线程获取发送的图片信息 并更新UI
 			Bitmap bitmap = (Bitmap) msg.obj;
+			// 将bitmap设置到图片控件上
 			picImage.setImageBitmap(bitmap);
 		}
 	};
@@ -87,7 +88,6 @@ public class MainActivity extends Activity implements OnClickListener {
 						InputStream inputStream = connection.getInputStream();
 						// 获得bitmap对象
 						Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
 						// 使用Message对象 让msg携带结果信息 并通过handler发送
 						// obtain() 方法 如果内存中存在message对象 则不创建 如果没有 则创建
 						Message msg = Message.obtain();
