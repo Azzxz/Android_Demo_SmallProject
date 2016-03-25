@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void run() {
-				// 请求网络
+				// 只能在子线程中请求网络
 				try {
 					// 将用户输入网址转换为 url对象
 					URL url = new URL(url_str);
