@@ -19,7 +19,7 @@ import xr.blogsfornetdemo.utils.BlogUtil;
 
 /**
  * @ClassName: MainActivity
- * @Description: 利用ListView模仿新闻或者博客客户端
+ * @Description: 网页博客客户端 获取服务器的JSON数据
  * @author iamxiarui@foxmail.com
  * @date 2016年3月23日 上午10:29:21
  * 
@@ -28,9 +28,12 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	private Context thisContext = MainActivity.this;
 	private ListView listView;
+	// 主线程接收handler上的数据 更新UI
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
+			// 得到 返回的list
 			ArrayList<BlogBean> blogListForNet = (ArrayList<BlogBean>) msg.obj;
+			// 如果从服务端获取来的数据 不为空 则更新UI
 			if (blogListForNet != null && blogListForNet.size() > 0) {
 				// 得到一个适配器
 				BlogAdapter adapter = new BlogAdapter(thisContext, blogListForNet);
@@ -47,8 +50,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		listView = (ListView) findViewById(R.id.listView);
 
+		// 从本地获取list
 		ArrayList<BlogBean> blogsListForDB = BlogUtil.getBlogsForDB(thisContext);
 
+		// 如果本地获取的数据库 不为空 则更新UI
 		if (blogsListForDB != null && blogsListForDB.size() > 0) {
 			// 得到一个适配器
 			BlogAdapter adapter = new BlogAdapter(thisContext, blogsListForDB);
@@ -56,14 +61,17 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			listView.setAdapter(adapter);
 		}
 
+		// 创建子线程
 		new Thread(new Runnable() {
 
 			@Override
 
 			public void run() {
 
+				// 从网页获取数据
 				ArrayList<BlogBean> blogListForNet = BlogUtil.getBlogsForNet(thisContext);
 
+				// 将获取的数据 通过handler发送到主线程
 				Message msg = Message.obtain();
 				msg.obj = blogListForNet;
 				handler.sendMessage(msg);

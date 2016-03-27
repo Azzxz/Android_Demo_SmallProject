@@ -5,6 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * @ClassName: BlogsOpenHelper
+ * @Description:本地博客数据库
+ * @author iamxiarui@foxmail.com
+ * @date 2016年3月27日 下午11:09:01
+ * 
+ */
 public class BlogsOpenHelper extends SQLiteOpenHelper {
 
 	public BlogsOpenHelper(Context context) {

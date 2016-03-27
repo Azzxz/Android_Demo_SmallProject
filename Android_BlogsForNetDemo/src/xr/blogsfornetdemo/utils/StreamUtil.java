@@ -11,11 +11,10 @@ import java.io.InputStream;
  * 
  */
 public class StreamUtil {
-
+	
 	public static String getStream(InputStream in) {
 
 		String code = "";
-
 		try {
 			// 字节流对象
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
