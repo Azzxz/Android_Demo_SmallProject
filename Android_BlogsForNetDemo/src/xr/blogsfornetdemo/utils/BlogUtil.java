@@ -24,7 +24,7 @@ import xr.blogsfornetdemo.bean.BlogBean;
 public class BlogUtil {
 
 	// 封装服务器地址 注意 这里一定要写IP地址 否则模拟器无法访问本地服务器
-	public static String NET_URL = "http://183.161.59.199:8080/Web_BlogNewsDemo/servlet/BlogNewsServlet";
+	public static String NET_URL = "http://223.242.49.235:8080/Web_BlogNewsDemo/servlet/BlogNewsServlet";
 
 	/**
 	 * @Title: getBlogs 
@@ -67,6 +67,7 @@ public class BlogUtil {
 					blogBean.des = jsonObject.getString("des");
 					blogBean.title = jsonObject.getString("title");
 					blogBean.url = jsonObject.getString("url");
+					blogBean.icon = jsonObject.getString("icon");
 
 					// 并将结果存入list中
 					list.add(blogBean);

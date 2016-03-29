@@ -1,7 +1,5 @@
 package xr.blogsfornetdemo.bean;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * @ClassName: BlogBean
  * @Description: ·â×°Blog¶ÔÏó
@@ -18,5 +16,7 @@ public class BlogBean {
 	public String url;
 
 	public int id;
+	
+	public String icon;
 
 }

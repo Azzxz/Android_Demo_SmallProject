@@ -17,7 +17,17 @@ public class BlogBean {
 	public String des;
 
 	public String url;
+	
+	public String icon;
 
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 
 	public int getId() {
 		return id;

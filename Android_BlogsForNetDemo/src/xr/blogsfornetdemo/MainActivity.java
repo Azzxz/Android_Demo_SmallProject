@@ -1,7 +1,6 @@
-package xr.blogsfornetd;
+package xr.blogsfornetdemo;
 
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import xr.blogsfornetd.R;
 import xr.blogsfornetdemo.adapter.BlogAdapter;
 import xr.blogsfornetdemo.bean.BlogBean;
 import xr.blogsfornetdemo.utils.BlogUtil;
@@ -32,6 +32,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			// 得到 返回的list
+			// 消除强制转换带来的警告
+			@SuppressWarnings("unchecked")
 			ArrayList<BlogBean> blogListForNet = (ArrayList<BlogBean>) msg.obj;
 			// 如果从服务端获取来的数据 不为空 则更新UI
 			if (blogListForNet != null && blogListForNet.size() > 0) {

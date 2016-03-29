@@ -49,6 +49,7 @@ public class BlogDaoUtil {
 				blogBean.title = cursor.getString(1);
 				blogBean.des = cursor.getString(2);
 				blogBean.url = cursor.getString(3);
+				blogBean.icon = cursor.getString(4);
 
 				list.add(blogBean);
 			}
@@ -75,6 +76,7 @@ public class BlogDaoUtil {
 			values.put("title", blogBean.title);
 			values.put("des", blogBean.des);
 			values.put("url", blogBean.url);
+			values.put("icon", blogBean.icon);
 			
 			db.insert("blogs", null, values);
 

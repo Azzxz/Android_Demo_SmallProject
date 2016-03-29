@@ -51,12 +51,14 @@ public class BlogNewsDao {
 					String title = rss.getString("title");
 					String des = rss.getString("des");
 					String url = rss.getString("url");
+					String icon = rss.getString("icon");
 
 					BlogBean blog = new BlogBean();
 					blog.setId(id);
 					blog.setTitle(title);
 					blog.setDes(des);
 					blog.setUrl(url);
+					blog.setIcon(icon);
 					arrayList.add(blog);
 				}
 				return arrayList;

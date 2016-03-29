@@ -7,14 +7,15 @@
     android:paddingBottom="10dp"
     android:paddingTop="10dp" >
 
-    <ImageView
+    <xr.blogsfornetdemo.view.UrlToPicImageView
         android:id="@+id/item_pic"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginRight="10dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" >
-    </ImageView>
+    </xr.blogsfornetdemo.view.UrlToPicImageView>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -73,6 +73,7 @@ public class BlogNewsServlet extends HttpServlet {
 				newsJson.put("title", blogBean.getTitle());
 				newsJson.put("des", blogBean.getDes());
 				newsJson.put("url", blogBean.getUrl());
+				newsJson.put("icon", blogBean.getIcon());
 				jsonArray.put(newsJson); // 把3个{} json对象添加到jsonArray里
 
 			}
