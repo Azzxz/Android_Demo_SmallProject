@@ -1,6 +1,8 @@
 package xr.loginfornetdemo;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import xr.loginfornetdemo.utils.SharedPreferenceUtil;
+import xr.loginfornetdemo.utils.StreamUtil;
 
 public class MainActivity extends Activity implements android.view.View.OnClickListener {
 	private Button loginButton;
@@ -76,10 +79,9 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			Toast.makeText(MainActivity.this, "用户名密码不能为空", Toast.LENGTH_SHORT).show();
 			return false;
 		}
-		
-		loginForGet(username,password);
-		
-		
+
+		loginForGet(username, password);
+
 		// 不为空的时候 如果复选框被选中
 		if (isrem) {
 
@@ -102,11 +104,6 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 				return false;
 			}
 
-			// 是否保存成功
-			// boolean result = UserInfo.saveUserInfo(MainActivity.this,
-			// username, password);
-			// boolean result = UserInfo2.saveInfo(MainActivity.this, username,
-			// password);
 			boolean result = SharedPreferenceUtil.SharedsaveInfo(MainActivity.this, username, password);
 			if (result) {
 				Toast.makeText(MainActivity.this, "用户名密码保存成功", Toast.LENGTH_SHORT).show();
@@ -122,11 +119,31 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 		}
 	}
 
-	private void loginForGet(String username, String password) {
+	private boolean loginForGet(String username, String password) {
+
+		try {
+			URL url = new URL("http://192.168.31.130:8080/Web_LoginForNetDemo/?username=root");
+			HttpURLConnection openConnection = (HttpURLConnection) url.openConnection();
+			openConnection.setRequestMethod("GET");
+			openConnection.setReadTimeout(5000);
+
+			int responseCode = openConnection.getResponseCode();
+			if (responseCode == 200) {
+
+				InputStream inputStream = openConnection.getInputStream();
+				String result = StreamUtil.getCodeStream(inputStream);
+				if(result.contains("Success")){
+					return true;
+				}
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		//URL url = new URL("http://localhost:8080/Web_LoginForNetDemo/?username=root");
-		
-		
+		return false;
+
 	}
-	
+
 }
