@@ -69,12 +69,17 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			Toast.makeText(MainActivity.this, "用户名密码不能为空", Toast.LENGTH_SHORT).show();
 		}
 
+		//开启子线程 访问网络是耗时操作
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
+				//利用Get方式
 				//final boolean loginResult = loginForGet(username, password);
+				//利用Post方式
 				final boolean loginResult = loginForPost(username, password);
+				
+				//在子线程中更新UI
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
@@ -101,6 +106,16 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 
 	}
 
+	
+	/**
+	* @Title: loginForGet
+	* @Description: 利用Get方式获得登陆信息
+	* @param @param username
+	* @param @param password
+	* @param @return
+	* @return boolean
+	* @throws
+	*/
 	private boolean loginForGet(String username, String password) {
 
 		try {
@@ -114,6 +129,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 				InputStream inputStream = openConnection.getInputStream();
 				String result = StreamUtils.streamToString(inputStream);
 				System.out.println(result);
+				//如果返回信息包含成功 则返回真
 				if (result.contains("Success")) {
 					return true;
 				}
@@ -124,6 +140,15 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 		return false;
 	}
 	
+	/**
+	* @Title: loginForPost
+	* @Description:利用Post方式返回登录信息
+	* @param @param username
+	* @param @param password
+	* @param @return
+	* @return boolean
+	* @throws
+	*/
 	private boolean loginForPost(String username, String password) {
 
 		try {
@@ -132,12 +157,13 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			openConnection.setRequestMethod("POST");
 			openConnection.setReadTimeout(5000);
 			
+			//与Get方式不同的部分 
 			openConnection.setRequestProperty("Cache-Control", "max-age=0");
 			openConnection.setRequestProperty("Content-Length", "21");
 			openConnection.setRequestProperty("Origin", "http://172.25.10.172:8080");
 			
+			//将数据以键值对的形式写入 
 			openConnection.setDoOutput(true);
-
 			openConnection.getOutputStream().write(("username="+username+"&pwd="+password).getBytes());
 
 			int responseCode = openConnection.getResponseCode();
