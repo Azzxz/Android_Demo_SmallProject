@@ -8,13 +8,14 @@ import java.util.Map;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import xr.loginfornetdemo.utils.SharedPreferenceUtil;
-import xr.loginfornetdemo.utils.StreamUtil;
+import xr.loginfornetdemo.utils.StreamUtils;
 
 public class MainActivity extends Activity implements android.view.View.OnClickListener {
 	private Button loginButton;
@@ -74,7 +75,6 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			public void run() {
 				final boolean loginResult = loginForGet(username, password);
 				runOnUiThread(new Runnable() {
-
 					@Override
 					public void run() {
 						if (loginResult) {
@@ -103,7 +103,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	private boolean loginForGet(String username, String password) {
 
 		try {
-			URL url = new URL("http://192.168.31.130:8080/Web_LoginForNetDemo/LoginServlet?username=root&pwd=123");
+			URL url = new URL("http://172.25.10.172:8080/Web_LoginForNetDemo/servlet/LoginServlet?username=root&pwd=123");
 			HttpURLConnection openConnection = (HttpURLConnection) url.openConnection();
 			openConnection.setRequestMethod("GET");
 			openConnection.setReadTimeout(5000);
@@ -111,7 +111,8 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			int responseCode = openConnection.getResponseCode();
 			if (responseCode == 200) {
 				InputStream inputStream = openConnection.getInputStream();
-				String result = StreamUtil.getCodeStream(inputStream);
+				String result = StreamUtils.streamToString(inputStream);
+				System.out.println(result);
 				if (result.contains("Success")) {
 					return true;
 				}
