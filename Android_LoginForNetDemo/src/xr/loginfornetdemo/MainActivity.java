@@ -73,7 +73,8 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 
 			@Override
 			public void run() {
-				final boolean loginResult = loginForGet(username, password);
+				//final boolean loginResult = loginForGet(username, password);
+				final boolean loginResult = loginForPost(username, password);
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
@@ -107,6 +108,37 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			HttpURLConnection openConnection = (HttpURLConnection) url.openConnection();
 			openConnection.setRequestMethod("GET");
 			openConnection.setReadTimeout(5000);
+
+			int responseCode = openConnection.getResponseCode();
+			if (responseCode == 200) {
+				InputStream inputStream = openConnection.getInputStream();
+				String result = StreamUtils.streamToString(inputStream);
+				System.out.println(result);
+				if (result.contains("Success")) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	private boolean loginForPost(String username, String password) {
+
+		try {
+			URL url = new URL("http://172.25.10.172:8080/Web_LoginForNetDemo/servlet/LoginServlet");
+			HttpURLConnection openConnection = (HttpURLConnection) url.openConnection();
+			openConnection.setRequestMethod("POST");
+			openConnection.setReadTimeout(5000);
+			
+			openConnection.setRequestProperty("Cache-Control", "max-age=0");
+			openConnection.setRequestProperty("Content-Length", "21");
+			openConnection.setRequestProperty("Origin", "http://172.25.10.172:8080");
+			
+			openConnection.setDoOutput(true);
+
+			openConnection.getOutputStream().write(("username="+username+"&pwd="+password).getBytes());
 
 			int responseCode = openConnection.getResponseCode();
 			if (responseCode == 200) {
