@@ -157,10 +157,10 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			openConnection.setRequestMethod("POST");
 			openConnection.setReadTimeout(5000);
 			
-			//与Get方式不同的部分 
-			openConnection.setRequestProperty("Cache-Control", "max-age=0");
-			openConnection.setRequestProperty("Content-Length", "21");
-			openConnection.setRequestProperty("Origin", "http://172.25.10.172:8080");
+			//与Get方式不同的部分  都可以去掉
+//			openConnection.setRequestProperty("Cache-Control", "max-age=0");
+//			openConnection.setRequestProperty("Content-Length", "21");
+//			openConnection.setRequestProperty("Origin", "http://172.25.10.172:8080");
 			
 			//将数据以键值对的形式写入 
 			openConnection.setDoOutput(true);
