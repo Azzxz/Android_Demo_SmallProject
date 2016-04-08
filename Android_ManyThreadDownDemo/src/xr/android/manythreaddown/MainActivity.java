@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -39,9 +41,15 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private String DOWN_PATH = "http://172.25.10.172:8080/Web_UploadExeDemo/testApp.exe";
 
+	//每个线程下载文件的大小
 	private int BLOCK_SIZE = 0;
+	//正在运行的线程数量
 	private int RUN_COUNT = 0;
+	//线程数
 	private int THREAD_COUNT = 0;
+	
+	//进度条的数据集合
+	private Map <Integer,ProgressBar> map = new HashMap<Integer,ProgressBar> ();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +73,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		// 初始化进度条布局文件
 		progressBarLayout = (LinearLayout) findViewById(R.id.progressBarLayout);
 
-		// 先清空已经存在的进度条
-		progressBarLayout.removeAllViews();
-
 		switch (v.getId()) {
 		case R.id.downButton:
+			// 先清空已经存在的进度条
+		    progressBarLayout.removeAllViews();
 			for (int i = 0; i < THREAD_COUNT; i++) {
 				// 依次将进度条加入布局中
 				progressBar = (ProgressBar) View.inflate(thisContext, R.layout.progress_bar_layout, null);
+				//将进度条加入集合中
+				map.put(i, progressBar);
 				progressBarLayout.addView(progressBar);
 			}
 
@@ -159,15 +168,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		private int endIndex;
 		// 上次文件下载的位置
 		private int lastPostion;
+		
+		//当前线程总共下载的数据进度
+		private int currentThreadTotalProgress;
 
 		public UploadThread(int threadId, int startIndex, int endIndex) {
 			this.threadId = threadId;
 			this.startIndex = startIndex;
 			this.endIndex = endIndex;
+			this.currentThreadTotalProgress = endIndex -startIndex +1;
 		}
 
 		@Override
 		public void run() {
+			
+			//获取当前线程对应ProgressBar
+			ProgressBar progressBar = map.get(threadId);
 
 			// 同步代码块 只要进入 线程数加一
 			synchronized (UploadThread.class) {
@@ -188,7 +204,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				if (fileLast.exists()) {
 					BufferedReader bufferedReader = new BufferedReader(
 							new InputStreamReader(new FileInputStream(fileLast)));
-					// 读取文件上次下载文职
+					// 读取文件上次下载位置
 					String lastPostion_str = bufferedReader.readLine();
 					lastPostion = Integer.parseInt(lastPostion_str);
 					openConnection.setRequestProperty("Range", "bytes:" + lastPostion + "-" + endIndex);
@@ -208,7 +224,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					// 从文件的偏移量开始存储
 					randomAccessFile.seek(lastPostion);
 
-					byte[] buf = new byte[1024 * 100];
+					byte[] buf = new byte[512];
 					int length = -1;
 					int totalFile = 0;
 					while ((length = inputStream.read(buf)) != -1) {
@@ -222,6 +238,11 @@ public class MainActivity extends Activity implements OnClickListener {
 						RandomAccessFile accessfile = new RandomAccessFile(filePause, "rwd");
 						accessfile.write(String.valueOf(currentThreadPostion).getBytes());
 						accessfile.close();
+						
+						//计算线程下载的进度并设置进度
+						int currentprogress = currentThreadPostion -startIndex;
+						progressBar.setMax(currentThreadTotalProgress);//设置进度条的最大值
+						progressBar.setProgress(currentprogress);//设置进度条当前进度
 					}
 
 					inputStream.close();
@@ -232,6 +253,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					// 同步代码块 如果线程下载完毕 删除所有预下载文件
 					synchronized (UploadThread.class) {
 						RUN_COUNT = RUN_COUNT - 1;
+						
+						//下载完毕 更新UI
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(thisContext, "下载完毕", 0).show();
+							}
+						});
+						
 						if (RUN_COUNT == 0) {
 							System.out.println("所有线程下载完成");
 							for (int i = 0; i < THREAD_COUNT; i++) {
