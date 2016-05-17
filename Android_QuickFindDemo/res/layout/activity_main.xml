@@ -6,6 +6,7 @@
     tools:context="com.quickfind.activity.MainActivity" >
 
     <com.quickfind.view.QuickFindBar
+        android:id="@+id/qfb_letter"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:background="#fff" >
