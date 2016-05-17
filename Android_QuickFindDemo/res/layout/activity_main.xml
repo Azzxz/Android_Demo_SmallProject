@@ -2,13 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context="com.quickfind.activity.MainActivity" >
+
+    <ListView
+        android:id="@+id/lv_friend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <com.quickfind.view.QuickFindBar
         android:id="@+id/qfb_letter"
         android:layout_width="30dp"
         android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
         android:background="#fff" >
     </com.quickfind.view.QuickFindBar>
 
