@@ -51,9 +51,29 @@ public class FriendListAdapter extends BaseAdapter implements ListAdapter {
 			convertView = View.inflate(context, R.layout.list_friend, null);
 		}
 
+		// 得到一个ViewHolder
 		ViewHolder holder = ViewHolder.getHolder(convertView);
 		FriendBean friend = list.get(position);
 		holder.nameText.setText(friend.getName());
+		// 填充拼音首字母
+		String currentpinyinFirstWord = friend.getPinyin().charAt(0) + "";
+		// 当前的条目不是第一个
+		if (position > 0) {
+			// 找到上一个的首字母
+			String lastpinyinFirstWord = list.get(position - 1).getPinyin().charAt(0) + "";
+			if (currentpinyinFirstWord.equals(lastpinyinFirstWord)) {
+				// 设置条目不可见
+				holder.firstWordText.setVisibility(View.GONE);
+			} else {
+				// 设置条目可见
+				holder.firstWordText.setVisibility(View.VISIBLE);
+				holder.firstWordText.setText(currentpinyinFirstWord);
+			}
+
+		} else {
+			holder.firstWordText.setVisibility(View.VISIBLE);
+			holder.firstWordText.setText(currentpinyinFirstWord);
+		}
 		return convertView;
 	}
 
@@ -61,14 +81,18 @@ public class FriendListAdapter extends BaseAdapter implements ListAdapter {
 	static class ViewHolder {
 		TextView firstWordText, nameText;
 
+		// 在构造函数中 初始化其他View
 		public ViewHolder(View convertView) {
 			nameText = (TextView) convertView.findViewById(R.id.tv_name);
 			firstWordText = (TextView) convertView.findViewById(R.id.tv_firstword);
 		}
 
+		// 得到一个ViewHolder
 		public static ViewHolder getHolder(View convertView) {
+			// 先判断有没有
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 			if (holder == null) {
+				// 没有的话new一个
 				holder = new ViewHolder(convertView);
 				convertView.setTag(holder);
 			}
