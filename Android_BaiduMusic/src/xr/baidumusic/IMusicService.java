@@ -3,15 +3,13 @@ package xr.baidumusic;
 import android.content.Context;
 
 /**
- * @Description:
+ * @Description:服务接口
  */
 public interface IMusicService {
 
-	public void toPlayMusic();
+    public void toPlayMusic(Context context);
 
-	public void toPauseMusic();
+    public void toPauseMusic(Context context);
 
-	public void toContinueMusic();
-
-	public void toSeekToPosition(int position);
+    public void toNextMusic(Context context);
 }

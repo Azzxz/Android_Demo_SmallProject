@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MyBaiduMusic</string>
     <string name="button_play">播放</string>
-    <string name="button_continue">暂停</string>
+    <string name="button_pause">暂停</string>
     <string name="button_next">下一首</string>
 
 </resources>
